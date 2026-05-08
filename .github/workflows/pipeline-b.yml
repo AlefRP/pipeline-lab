@@ -1,0 +1,41 @@
+name: Outro Pipeline de Teste
+
+# Este é um segundo pipeline para demonstrar a estrutura de workflows no GitHub Actions.
+on:
+  push:
+    branches: [ main, develop]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '18.x'
+
+jobs:
+  printando-variaveis:
+    name: "Printando Variáveis de Ambiente"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout do Repositório"
+        uses: actions/checkout@v4
+
+      - name: "Printar variáveis de ambiente"
+        run: |
+          echo "Variáveis de ambiente disponíveis:"
+          # Printar todas as variáveis de ambiente
+          env
+      
+      - name: "Preparar ambiente de teste Python"
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: "Instalar dependencias de teste"
+        run: pip install pytest
+
+      - name: "Executar testes com pytest"
+        run: |
+          echo "Executando testes com pytest..."
+          pytest tests/ --maxfail=1 --disable-warnings -q
+
