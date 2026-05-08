@@ -1,0 +1,42 @@
+name: Pipeline de Teste
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+
+env:
+  NODE_VERSION: '18.x'
+
+
+jobs:
+  demonstrando-estruturas:
+    name: "Demonstra Estrutura Básica"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout do Repositório"
+        uses: actions/checkout@v3
+
+      - name: "Mostrar estrutura do '.github/workflows'"
+        run: |
+          echo "Listando arquivos em '.github/workflows':"
+          ls -la .github/workflows
+          echo ""
+          echo "Total de workflows: $(ls -1 .github/workflows | wc -l)"
+      
+      - name: "Elementos obrigatórios do workflow"
+        run: |
+          echo "Elementos obrigatórios do workflow:"
+          echo "- name: Nome do workflow"
+          echo "- on: Evento que dispara o workflow"
+          echo "- jobs: Conjunto de tarefas a serem executadas"
+
+      - name: "Variáveis de ambiente"
+        run: |
+          echo "Variáveis de ambiente definidas:"
+          # Contar o número de variáveis de ambiente
+          echo "Total de variáveis de ambiente: $(env | wc -l)"
+
+  
