@@ -22,22 +22,22 @@ jobs:
       
       - name: "Mostrar informações do Sistema"
         run: |
-            echo "Sistema Operacional: ${{ runner.os }}"
-            echo "Versão do Python: $(python --version)"
-            echo "Data e Hora: $(date)"
+          echo "Sistema Operacional: ${{ runner.os }}"
+          echo "Versão do Python: $(python --version)"
+          echo "Data e Hora: $(date)"
       
       - name: "Lista aquivos do repositório"
         run: ls -la
 
       - name: "Comandos avançados"
         run: |
-            echo "Criando um arquivo de teste..."
-            echo "Este é um arquivo de teste." > teste.txt
-            cat teste.txt
-            rm teste.txt
+          echo "Criando um arquivo de teste..."
+          echo "Este é um arquivo de teste." > teste.txt
+          cat teste.txt
+          rm teste.txt
 
-        - name: "Gerar artefato"
-          run: |
-              echo "Gerando um artefato de exemplo..."
-              echo "Este é um artefato de exemplo." > artefato.txt
-              cat artefato.txt
+      - name: "Gerar artefato"
+        run: |
+          echo "Gerando um artefato de exemplo..."
+          echo "Este é um artefato de exemplo." > artefato.txt
+          cat artefato.txt
