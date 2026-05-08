@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: "Checando o código"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: "Dizendo Olá"
         run: echo "Olá, mundo!"
 
