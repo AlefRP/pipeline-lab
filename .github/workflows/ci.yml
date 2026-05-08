@@ -1,6 +1,0 @@
-name: Pipeline CI/CD de Testes Automatizados
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
