@@ -1,12 +1,11 @@
-name: "Estrutura de Diretórios"
+name: "Um Pipeline Básico"
 
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
-
-env:
-    PYTHON_VERSION: "3.11"
 
 jobs:
   hello-job:
@@ -19,7 +18,7 @@ jobs:
       - name: "Preparando Python"
         uses: actions/setup-python@v6
         with:
-          python-version: ${{ env.PYTHON_VERSION }}
+          python-version: "3.11"
 
       - name: "Instalando dependências"
         run: python -m pip install pytest
@@ -28,7 +27,7 @@ jobs:
         run: echo "Olá, mundo!"
 
       - name: "Rodando os testes"
-        run: python -m pytest tests/ --junitxml=results.xml
+        run: python -m pytest tests/
       
       - name: "Mostrar informações do Sistema"
         run: |
@@ -47,20 +46,7 @@ jobs:
           rm teste.txt
 
       - name: "Gerar artefato"
-        uses: actions/upload-artifact@v4
-        with:
-          name: pytest-logs
-          path: results.xml
-  
-  desenhe-um-dinossauro:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: "Desenhando um dinossauro"
         run: |
-          echo "Desenhando um dinossauro..."
-          echo "       __" 
-          echo "      / _)" 
-          echo " .-^^^-/ /" 
-          echo "__/       /" 
-          echo "<__.|_|-|_|"
+          echo "Gerando um artefato de exemplo..."
+          echo "Este é um artefato de exemplo." > artefato.txt
+          cat artefato.txt
