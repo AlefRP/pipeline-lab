@@ -1,66 +1,28 @@
-name: "Estrutura de Diretórios"
+name: "Push Pipeline"
 
 on:
-  schedule:
-    - cron: "*/5 * * * *"
-  workflow_dispatch:
-
-env:
-    PYTHON_VERSION: "3.11"
+  push:
+    branches:
+      - main
+      - develop
+  paths:
+    - 'src/**'
+    - 'README.md'
+    - 'requirements.txt'
+    - 'setup.py'
 
 jobs:
-  hello-job:
+  push-job:
     runs-on: ubuntu-latest
 
     steps:
-      - name: "Checando o código"
+      - name: "Checkout do Código"
         uses: actions/checkout@v4
 
-      - name: "Preparando Python"
-        uses: actions/setup-python@v6
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-
-      - name: "Instalando dependências"
-        run: python -m pip install pytest --no-cache-dir
-
-      - name: "Dizendo Olá"
-        run: echo "Olá, mundo!"
-
-      - name: "Rodando os testes"
-        run: python -m pytest tests/ --junitxml=results.xml
-      
-      - name: "Mostrar informações do Sistema"
+      - name: "Informações do Push"
         run: |
-          echo "Sistema Operacional: ${{ runner.os }}"
-          echo "Versão do Python: $(python --version)"
-          echo "Data e Hora: $(date)"
-      
-      - name: "Lista aquivos do repositório"
-        run: ls -la
-
-      - name: "Comandos avançados"
-        run: |
-          echo "Criando um arquivo de teste..."
-          echo "Este é um arquivo de teste." > teste.txt
-          cat teste.txt
-          rm teste.txt
-
-      - name: "Gerar artefato"
-        uses: actions/upload-artifact@v4
-        with:
-          name: pytest-logs
-          path: results.xml
-  
-  desenhe-um-dinossauro:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: "Desenhando um dinossauro"
-        run: |
-          echo "Desenhando um dinossauro..."
-          echo "       __" 
-          echo "      / _)" 
-          echo " .-^^^-/ /" 
-          echo "__/       /" 
-          echo "<__.|_|-|_|"
+          echo "Branch: ${{ github.ref }}"
+          echo "Commit SHA: ${{ github.sha }}"
+          echo "Commit Message: ${{ github.event.head_commit.message }}"
+          echo "Pushed by: ${{ github.actor }}"
+        
