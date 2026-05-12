@@ -1,0 +1,30 @@
+name: "Issue Pipeline"
+
+on:
+  issues:
+    types: [opened, edited, closed]
+
+jobs:
+  issue-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Informações da Issue"
+        run: |
+          echo "Action: ${{ github.event.action }}"
+          echo "Issue Title: ${{ github.event.issue.title }}"
+          echo "Issue Body: ${{ github.event.issue.body }}"
+          echo "Issue State: ${{ github.event.issue.state }}"
+          echo "Issue Author: ${{ github.event.issue.user.login }}"
+      
+      - name: "Resposta Automática (nova issue)"
+        if: github.event.action == 'opened'
+        uses: actions/github-script@v6
+        with:          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+             github.issues.createComment({
+               issue_number: context.issue.number,
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               body: "Obrigado por abrir esta issue! Nossa equipe irá analisá-la em breve."
+             });
