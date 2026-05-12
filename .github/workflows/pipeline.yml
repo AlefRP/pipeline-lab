@@ -5,12 +5,11 @@ on:
     branches:
       - main
       - develop
-  
-  paths:
-    - 'src/**'
-    - 'README.md'
-    - 'requirements.txt'
-    - 'setup.py'
+    paths:
+      - 'src/**'
+      - 'README.md'
+      - 'requirements.txt'
+      - 'setup.py'
 
 jobs:
   push-job:
